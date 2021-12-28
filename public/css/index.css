@@ -1,0 +1,18 @@
+/* Main Body Styling */
+.container{
+    display: grid;
+    gap: 0.5rem;
+    grid:  2fr repeat(2,1fr) 0.5fr/auto;
+    min-height: 100vh;
+}
+.section-img{
+    grid-row: 3;
+    width: 95%;
+    height: 95%;
+    padding: 0.25rem;
+}
+.doodle{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

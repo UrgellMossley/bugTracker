@@ -1,0 +1,122 @@
+/* import font from google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+/* Resets and variable declarations */
+*,*::after,*::before{
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+}
+:root {
+  --main-bg-color: #E1EBEE;
+  --main-element-accent: #0A2C70; 
+}
+html{
+    font-size: 62.5%;
+}
+body{
+    background-color: var(--main-bg-color);
+    font-family: 'Lato', sans-serif;
+    max-width: 100%;
+    width: 100vw;
+    min-height: 100vh;
+}
+/* Utility classes */
+.text-xl{
+    font-size: 4rem;
+}
+.text-lg{
+    font-size: 3rem;
+}
+.text-m{
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+.text-sm{
+    font-size: 2rem;
+}
+.text{
+    padding: 0.5rem;
+}
+.grid-centre{
+    place-items: center;
+}
+.circle-element{
+    border-radius: 50%;
+}
+.hidden-item{
+    display: none;
+}
+.flex-centre{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+.btn{
+    cursor: pointer;
+    padding: 2rem;
+    border: none;
+    border-radius: 5%;
+}
+.text-box{
+    width: 95%;
+}
+/* Navbar styling */
+.navbar{
+    width: 100%;
+    height: 11rem;
+    border-bottom: 0.1rem solid var(--main-element-accent);
+    background: none;
+
+}
+.nav-container{
+    padding-bottom: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    display: flex/*should be flex by default then add close class display: none*/;
+    flex-direction: row;
+    justify-content: center;
+}
+.nav-item > a > img {
+    height: 8rem;
+}
+a{
+    text-decoration: none;
+}    
+
+.nav-item{
+    list-style: none;
+    font-size: 2rem;
+    text-transform: capitalize;
+}
+/* hamburger menu*/
+.hamburger,
+.hamburger::after,
+.hamburger::before{
+    display: block;
+    width: 2rem;
+    height: 0.25rem;
+    background: #000;
+    position: relative;
+    margin: 0 auto;
+}
+
+.hamburger::before, .hamburger::after{
+    position: absolute;
+    content: " ";
+    left: 0;
+}
+.hamburger::after{
+    top: 0.5rem;
+}
+.hamburger::before{
+    top: -0.5rem;
+}
+/* Hamburger btn */
+.hamburger-btn{
+    transform: translate(-10rem,-6rem);
+    height: 5rem;
+    width: 5rem;
+    border: none;
+}
+

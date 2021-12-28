@@ -1,4 +1,17 @@
 <%-include(`../includes/head.ejs`)%>
+<link rel="stylesheet" href="/css/index.css">
 </head>
-<h1>Check your open tickets here!</h1>
+<%-include(`../includes/nav.ejs`)%>
+
+<main class="container grid-centre">
+    <h1 class="headline text-xl">Bug Tracker App</h1>
+    <section class="grid-centre text-box" id="text-box-1">
+         <p class="text text-m">This application is my first fullstack application.</p>
+         <p class="text text-m">Using NodeJS and Mysql I am attempting to serve up an application that allows both users and admins to create, monitor and action tickets!</p>
+    </section>
+    <section class="grid-centre section-img">
+        <img class="doodle" src="/img/MessyDoodle.png" alt="picture of a lady multi tasking">
+    </section>
+    <a href="#"><button id="start-btn" class="btn text-sm grid-centre">Get Started!</button></a>
+</main>
 <%-include(`../includes/end.ejs`)%>
