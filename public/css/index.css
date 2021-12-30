@@ -1,18 +1,30 @@
 /* Main Body Styling */
+section{
+    grid-column: 1/4;
+}
 .container{
     display: grid;
     gap: 0.5rem;
-    grid:  2fr repeat(2,1fr) 0.5fr/auto;
+    grid: 20vh 80vh repeat(2,1fr) 0.5fr/repeat(3, 1fr);
     min-height: 100vh;
+}
+.headline{
+    grid-column: 1/4;
+    transform: translateY(-50%);
 }
 .section-img{
     grid-row: 3;
     width: 95%;
     height: 95%;
     padding: 0.25rem;
+    grid-column: 1/4;
 }
 .doodle{
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+.lead-text{
+    grid-row: 2;
+    
 }
