@@ -2,12 +2,7 @@
 section{
     grid-column: 1/4;
 }
-.container{
-    display: grid;
-    gap: 0.5rem;
-    grid: 20vh 80vh repeat(2,1fr) 0.5fr/repeat(3, 1fr);
-    min-height: 100vh;
-}
+
 .headline{
     grid-column: 1/4;
     transform: translateY(-50%);
@@ -27,4 +22,27 @@ section{
 .lead-text{
     grid-row: 2;
     
+}
+@media screen and (min-width: 810px) {
+.container{
+    grid-template-rows: 15vh 0.5fr 1fr 0.5fr;
+
+}
+.lead-text{
+        grid-column: 5/9;
+        align-self: center;
+        grid-row: 2/3;
+    }
+.text-box{
+        grid-row: 3/4;
+        grid-column: 2/7;
+    }
+.section-img{
+        grid-row: 3/4;
+        grid-column: 7/13;
+}
+.start-section{
+    grid-row: 4/5;
+    grid-column: 6/8;
+}
 }
