@@ -1,0 +1,52 @@
+
+/* Layout of page */
+.container{
+    min-height: 100vh;
+    height: 100%;
+    max-width: 100vw;
+    width: 100vw;
+    grid:15vh auto/ auto ;
+}
+.flex-container{
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    grid-column: 2;
+    grid-row: 2;
+}
+.ticket-table{
+    margin-top: 3rem;
+}
+.headline{
+    margin-bottom: 1rem;
+}
+#ticket-text{
+    margin-left: 0.5rem;
+
+}
+/* Table layout */
+thead, td, table{
+    border: 1px solid var(--main-element-accent);
+    border-collapse: collapse;
+
+}
+.head-column{
+    background: #4349a7;
+    color: white;
+    text-align: center;
+    border: none;
+    
+}
+
+table{
+    grid-column: 2 ;
+    border-radius: 1.5rem;
+    overflow:hidden;
+    
+}
+td{
+    padding: 0.4rem;
+    background: #fff;
+    
+}

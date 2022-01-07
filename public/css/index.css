@@ -1,8 +1,13 @@
 /* Main Body Styling */
+.container{
+    display: grid;
+    grid-template-rows: 15vh 0.5fr 1fr 0.5fr;
+    grid-template-columns: repeat(3, 1fr);
+
+}
 section{
     grid-column: 1/4;
 }
-
 .headline{
     grid-column: 1/4;
     transform: translateY(-50%);
@@ -24,9 +29,9 @@ section{
     
 }
 @media screen and (min-width: 810px) {
-.container{
-    grid-template-rows: 15vh 0.5fr 1fr 0.5fr;
 
+.container{
+    grid-template-columns: repeat(12, 1fr);
 }
 .lead-text{
         grid-column: 5/9;

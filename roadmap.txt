@@ -1,0 +1,7 @@
+************Plans For Next Milestone*********************
+- work out how to traverse db object. 
+- use db object to render data in template 
+-General
+
+Resolve lingering CSS issue (grid of container), nav issue
+Research more on solution for auth/sessions

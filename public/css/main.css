@@ -50,6 +50,9 @@ body{
 .text-sm{
     font-size: 2rem;
 }
+.text-xs{
+    font-size: 1.5rem;
+}
 .text{
     padding: 0.5rem;
 }
@@ -59,16 +62,6 @@ body{
 .circle-element{
     border-radius: 50%;
 }
-@keyframes showNav{
-    0%{
-        transform: translateX(-100%);
-    }
-    100%{
-        transform: translateX(200%);
-    }
-}
-
-
 .flex-centre{
     display: flex;
     justify-content: center;
@@ -76,6 +69,9 @@ body{
 }
 .font-wt-700{
     font-weight: 700;
+}
+.font-wt-900{
+    font-weight: 900;
 }
 .btn{
     cursor: pointer;
@@ -94,15 +90,13 @@ body{
     align-self: start;
     grid-column: 1/4;
     transition: transform .3s ease;
-        transform: translateX(-100%);
+    transform: translateX(-100%);
     width: 60vw;
-
-
-
 }
 .hidden-item{
     transform: translateX(0%);
 }
+
 
 .nav-container{
 

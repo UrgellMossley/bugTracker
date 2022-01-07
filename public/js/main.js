@@ -6,6 +6,7 @@ const navlist = document.querySelector(`.navbar`)
 const nodeContainer = document.querySelector(`.container`)
 
 hamburgerBtn.addEventListener(`click`,()=>{
+    navlist.classList.toggle(`active`)
     navlist.classList.toggle(`hidden-item`)
     nodeContainer.classList.toggle(`overlayed`)
 

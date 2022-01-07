@@ -1,5 +1,36 @@
 <%-include(`../includes/head.ejs`)%>
+<link rel="stylesheet" href="/css/queue.css">
 </head>
     <%-include(`../includes/nav.ejs`) %>
-    <h1><%= user.firstName %>'s Tickets</h1>
+    <div class="flex-container flex-centre">
+        <section class="welcome-text">
+            <h1 class="headline text-xl font-wt-900">Hi <%=user.firstName %>!</h1>
+            <h2 class="ticket-count text-m font-wt-700">You have X active tickets</h2>
+    </section>
+    <!-- remember to change over ids for classes -->
+    <section class="ticket-table">
+        <h1 class="headline text-lg" id="ticket-text">Your Tickets</h1>
+        <table class="text-xs">
+            <thead class="table-header">
+                <td class="head-column font-wt-700 case-header">Case Number</td>
+
+                <td class="head-column font-wt-700 priority-header">Priority</td>
+                <td class="head-column font-wt-700 last-Actioned-header">Last Actioned</td>
+                <td class="head-column font-wt-700 title-header">Title</td>
+                <td class="head-column font-wt-700 status-header">Status</td>
+            </thead>
+            <!-- In model add a row for each case and poulate qith db information -->
+            <tr class="row">
+                <td id="case-cell"></td>
+                <td id="priority-cell"></td>
+                <td id="last-Actioned-cell"></td>
+                <td id="title-cell"></td>
+                <td id="status-cell"></td>
+            </tr>
+           
+            
+        </table>
+    </section>
+    </div>
+    
 <%-include(`../includes/end.ejs`) %>

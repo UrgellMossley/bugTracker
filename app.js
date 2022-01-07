@@ -15,7 +15,8 @@ const { uuid } = require('uuidv4');
 
 //import User model
 const User = require(`./models/User.js`)
-
+//import Ticket model
+const Ticket = require(`./models/Tickets.js`)
 //body parser allowing us to route files and access requests etc
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -36,14 +37,16 @@ app.use(async (req, res, next) => {
     try {
         //dummy user, when auth/log in is developed we can select a user from db
         const user = await User.findAll()
-        req.user = user[0].dataValues
-        console.log(req.user)
+           req.user = user[0]
         next();
 
     } catch (error) {
         console.log(error);
     }
 })
+//setup Sequelize association
+User.hasMany(Ticket);
+Ticket.belongsTo(User);
 
 //middleware handles all userRoutes
 app.use(userRoutes)

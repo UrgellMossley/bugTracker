@@ -1,19 +1,26 @@
 const User = require(`../models/User.js`)
-
+const Ticket = require(`../models/Tickets.js`)
+//render index page
 exports.getIndex = (req,res,next)=>{
    res.render(`users/index`, {
         pageTitle: `Your Tickets`,
         path: `/`
     })
 }
-
-exports.getQueue = (req,res,next) =>{
-    const {firstName} = req.user
-    
-    res.render(`users/my-queue`, {
-        pageTitle: `${firstName}'s tickets`,
-        path: `/your-tickets`,
-        user: req.user
-    })
-
-}
+//middleware to render stored db data for a chosen user
+exports.getQueue = async(req,res,next) =>{
+    //store test user in a variable and use magic method to query associated Tickets
+    try {
+        const testUser = await req.user;
+        const userTickets = await testUser.getTickets();
+        //render dynamic template with passed in db data
+        res.render(`users/my-queue`, {
+            pageTitle: `${testUser.firstName}'s tickets`,
+            path: `/your-tickets`,
+            user: testUser,
+            tickets: userTickets
+        });
+    } catch (error) {
+        console.log(error);
+    };
+};
