@@ -1,4 +1,6 @@
-
+:root{
+    --tablecolor: #5860cf;
+}
 /* Layout of page */
 .container{
     min-height: 100vh;
@@ -16,23 +18,22 @@
     grid-row: 2;
 }
 .ticket-table{
+    max-width: 95%;
     margin-top: 3rem;
+    overflow: auto;
 }
 .headline{
     margin-bottom: 1rem;
+    text-align: center;
 }
 #ticket-text{
     margin-left: 0.5rem;
 
 }
 /* Table layout */
-thead, td, table{
-    border: 1px solid var(--main-element-accent);
-    border-collapse: collapse;
 
-}
 .head-column{
-    background: #4349a7;
+    background: #5860cf;
     color: white;
     text-align: center;
     border: none;
@@ -41,12 +42,27 @@ thead, td, table{
 
 table{
     grid-column: 2 ;
-    border-radius: 1.5rem;
+    border-radius: 1.5rem 1.5rem 0 0;
     overflow:hidden;
+    border: 1px solid var(--tablecolor);
+    border-collapse: collapse;
     
 }
 td{
     padding: 0.4rem;
-    background: #fff;
-    
+    background: #fff;   
+}
+.cell{
+    text-align: center;
+}
+.rowStyle > td{
+    background: rgb(216, 218, 223);
+}
+.highlighted-row{
+    border:2px solid coral;
+}
+@media screen and (min-width: 810px) {
+    .flex-container{
+        grid-column: 1/13;
+    }
 }

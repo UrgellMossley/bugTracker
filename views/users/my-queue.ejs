@@ -5,7 +5,7 @@
     <div class="flex-container flex-centre">
         <section class="welcome-text">
             <h1 class="headline text-xl font-wt-900">Hi <%=user.firstName %>!</h1>
-            <h2 class="ticket-count text-m font-wt-700">You have X active tickets</h2>
+            <h2 class="ticket-count text-m font-wt-700">You have <%=tickets.length%> active tickets</h2>
     </section>
     <!-- remember to change over ids for classes -->
     <section class="ticket-table">
@@ -20,13 +20,16 @@
                 <td class="head-column font-wt-700 status-header">Status</td>
             </thead>
             <!-- In model add a row for each case and poulate qith db information -->
-            <tr class="row">
-                <td id="case-cell"></td>
-                <td id="priority-cell"></td>
-                <td id="last-Actioned-cell"></td>
-                <td id="title-cell"></td>
-                <td id="status-cell"></td>
-            </tr>
+            <%tickets.forEach(item=>{%>
+                    <tr class="row">
+                        <td class="cell" id="case-cell"><%=item.dataValues.caseNo%></td>
+                        <td class="cell" id="priority-cell"><%=item.dataValues.priority%></td>
+                        <td class="cell" id="last-Actioned-cell"><%=item.dataValues.updatedAt%></td>
+                        <td class="cell" id="title-cell"><%=item.dataValues.title%></td>
+                        <td class="cell" id="status-cell"><%=item.dataValues.status%></td>
+                    </tr>    
+            <%})%>
+            
            
             
         </table>
@@ -34,3 +37,5 @@
     </div>
     
 <%-include(`../includes/end.ejs`) %>
+<script src="/js/queue.js"></script>
+<%-include(`../includes/scripts.ejs`)%>
