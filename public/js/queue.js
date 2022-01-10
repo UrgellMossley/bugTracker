@@ -7,7 +7,7 @@ const arr = [...tableRow]
 const highlightRow = (el,e, row) => {
     const selected = document.querySelector(`.highlighted-row`)
     e.target 
-    if (selected || selected && e.target.parentNode !== row) {
+    if (selected ||  selected && e.target.parentNode !== row) {
         selected.classList.remove(`highlighted-row`)
     }
     el.classList.toggle(`highlighted-row`)

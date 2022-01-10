@@ -6,3 +6,13 @@
 
 Resolve lingering CSS issue (grid of container), nav issue
 Research more on solution for auth/sessions
+
+*****ROUGH NOTES FOR STUDY***********
+verify user cb
+strategy
+import into routes
+put into route middleware
+serialise and deserialise
+
+understand crypto lib
+hash and salt and rfc

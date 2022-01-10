@@ -22,8 +22,10 @@ const { uuid } = require('uuidv4');
 
 //import User model
 const User = require(`./models/User.js`)
-//import Ticket model
-const Ticket = require(`./models/Tickets.js`)
+//import Queue model
+const Queue = require(`./models/Queues.js`)
+//import extended model for cases
+const Case = require(`./models/Case.js`)
 //body parser allowing us to route files and access requests etc
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -81,8 +83,9 @@ app.use(async (req, res, next) => {
     }
 })
 //setup Sequelize association
-User.hasMany(Ticket);
-Ticket.belongsTo(User);
+User.hasOne(Queue);
+Queue.belongsTo(User);
+Queue.hasMany(Case,{foreignKey: `caseNo`})
 
 //middleware handles all userRoutes
 app.use(userRoutes)
@@ -115,4 +118,4 @@ const dbInit = async() => {
         }
 
 };
-dbInit()
+dbInit();

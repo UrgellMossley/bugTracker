@@ -3,11 +3,12 @@ const sequelize = require(`../util/database.js`)
 //import Sequelize module
 const Sequelize = require(`Sequelize`)
 //define Ticket model
-const Ticket = sequelize.define(`Ticket`,  {
+const Queue = sequelize.define(`Queue`,  {
     caseNo:{
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
+        foreignKey:true,
         primaryKey: true
     },
     status:{
@@ -15,18 +16,6 @@ const Ticket = sequelize.define(`Ticket`,  {
         allowNull: false,
         defaultValue: `ASSIGNED`
     },
- /*  
- Sequelize will automatically generate created and updated fields in the Ticket table
- Will pull from there (hopefully)
- dateCreated:{
-        type: Sequelize.DATEONLY,
-        allowNull: false
-    },
-    lastActioned:{
-        type: Sequelize.DATE,
-        allowNull:false,
-        defaultValue: new Date()
-    }, */
     title:{
         type: Sequelize.STRING,
         allowNull: false
@@ -37,4 +26,4 @@ const Ticket = sequelize.define(`Ticket`,  {
     }    
 });
 
-module.exports = Ticket;
+module.exports = Queue;
