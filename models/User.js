@@ -1,6 +1,6 @@
 /* NB: As is convention uppercase Sequelize refers to module of Sequelize, while lower case is our initialisation */
 //import Sequelize module
-const { UUIDV4 } = require("sequelize");
+
 const Sequelize = require(`sequelize`);
 //import initialisation of database 
 const sequelize = require(`../util/database`);

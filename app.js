@@ -8,7 +8,14 @@ const app = express();
 const path = require(`path`);
 
 //import inizialtion of sequelize from util dir
-const sequelize = require(`./util/database.js`)
+const sequelize = require(`./util/database.js`);
+
+//import module that allows us to create session middleware
+const session = require(`express-session`);
+
+//import module that allows us to instantiate Sequelize with session store
+const SequelizeStore = require(`connect-session-sequelize`)(session.Store);
+
 
 //import uuid4 for id generation
 const { uuid } = require('uuidv4');
@@ -31,7 +38,36 @@ app.set(`view engine`, `ejs`);
 app.set(`views`,`views`);
 
 //import router modules fron routes duirectory
-const userRoutes = require(`./routes/users.js`)
+const userRoutes = require(`./routes/users.js`);
+
+//set up instance of Sequelise store which can be synced when nneded
+const myStore = new SequelizeStore({
+    db: sequelize,
+});
+//middleware to define session data and cookie options
+app.use(
+    session({
+        cookie:{
+            //set max age to one day, after cookie will expire
+            maxAge: 1000 * 60 * 60 * 24,
+            //As per docs, this will be considerated a path seperator, and filters through subdomains i.e. /my-queue etc
+            path: `/`
+        },
+        //function needed to be passed in so that we can gen UUID for cookie ID
+        genid: function genId(req) {
+            return uuid()
+        },
+        secret: "bugtracker",
+        store: myStore,
+        //as per express session docs this must be false as connect-session-sequelize uses touch method
+        resave: false,
+        //no SSL implementation as of yet
+        proxy: false, 
+    })
+);
+//syncs the session data to our db
+myStore.sync();
+
 
 app.use(async (req, res, next) => {
     try {
