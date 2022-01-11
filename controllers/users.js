@@ -1,5 +1,5 @@
 const User = require(`../models/User.js`)
-const Ticket = require(`../models/Queues.js`)
+const Queue = require(`../models/Queues.js`)
 //render index page
 exports.getIndex = (req,res,next)=>{
    res.render(`users/index`, {
@@ -12,7 +12,15 @@ exports.getQueue = async(req,res,next) =>{
     //store test user in a variable and use magic method to query associated Tickets
     try {
         const testUser = await req.user;
-        const userQueue = await testUser.getTickets();
+        try {
+            let userQueue = await testUser.getQueue();
+           if (!userQueue){
+                userQueue = []
+            }
+        } catch (error) {
+            console.log(error)
+        }
+         
         //render dynamic template with passed in db data
         res.render(`users/my-queue`, {
             pageTitle: `${testUser.firstName}'s tickets`,

@@ -5,7 +5,7 @@
     <div class="flex-container flex-centre">
         <section class="welcome-text">
             <h1 class="headline text-xl font-wt-900">Hi <%=user.firstName %>!</h1>
-            <h2 class="ticket-count text-m font-wt-700">You have <%=tickets.length%> active tickets</h2>
+            <h2 class="ticket-count text-m font-wt-700">You have <%=queue.length%> active tickets</h2>
     </section>
     <!-- remember to change over ids for classes -->
     <section class="ticket-table">
@@ -20,7 +20,7 @@
                 <td class="head-column font-wt-700 status-header">Status</td>
             </thead>
             <!-- In model add a row for each case and poulate qith db information -->
-            <%tickets.forEach(item=>{%>
+            <%queue.forEach(item=>{%>
                     <tr class="row">
                         <td class="cell" id="case-cell"><%=item.dataValues.caseNo%></td>
                         <td class="cell" id="priority-cell"><%=item.dataValues.priority%></td>
@@ -33,6 +33,25 @@
            
             
         </table>
+    </section>
+    <section id="new-case">
+        <button class="btn">Create New Case</button>
+        <form action="POST" id="case-create">
+            <h1>Create a New Case</h1>
+            <label for="title">Case Title</label>
+            <input type="text" name="title">
+            <label for="priority">Priority</label>
+             <select name="priority" id="pet-select">
+                    <option value="">--Please choose an option--</option>
+                    <option value="P1">P1</option>
+                    <option value="P2">P2</option>
+                    <option value="P3">P3</option>
+                    <option value="p4">p4</option>
+             </select>
+             <label for="case-description">Issue Summary</label>
+             <textarea name="case-description" id="case-description" cols="30" rows="10"></textarea>
+             <button type="submit">Submit</button>
+        </form>
     </section>
     </div>
     
