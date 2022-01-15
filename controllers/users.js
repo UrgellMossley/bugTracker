@@ -46,16 +46,19 @@ exports.postCase = async (req, res, next) => {
                 if (!userQueue){
                       userQueue = []  
                 }
+                //creates a case and stores in a variable
                 let userCase = await Case.create({
                     caseDescription: caseDescription,
                     title: caseTitle,
                     priority: priority,
                     UserId: testUser.id
                 })
+                //adds select data from case variable to Queue model for use later
                 await Queue.create({
                     UserId: userCase.UserId,
                     caseNo: userCase.caseNo
                 })
+                //redirect to the page with updated data
                 res.redirect(`/my-queue`)
             } catch (error) {
                 console.log(error)

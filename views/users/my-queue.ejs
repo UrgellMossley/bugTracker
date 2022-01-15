@@ -9,13 +9,15 @@
     </section>
     <!-- remember to change over ids for classes -->
     <section class="ticket-table flex-container flex-centre">
+        <form action="/view-case/?" method="GET" id="case-form"></form>
+
         <% if (cases.length === 0 ) {%>
             <h1 class="headline text-sm" id="ticket-text">Let's get started!</h1>
                 <button class="btn-sm" id="display-form">Create New Case</button>
 
         <%} else{ %>
              <h1 class="headline text-lg" id="ticket-text">Your Tickets</h1>
-            <table class="text-xs">
+             <table class="text-xs">
                 <thead class="table-header">
                     <td class="head-column font-wt-700 case-header">Case Number</td>
                     <td class="head-column font-wt-700 priority-header">Priority</td>
@@ -26,7 +28,10 @@
                 <!-- In model add a row for each case and populate with db information -->
                 <%cases.forEach(item=>{%>
                         <tr class="row">
-                            <td class="cell" id="case-cell"><%=item.dataValues.caseNo%></td>
+                            <td class="cell" id="case-cell">
+                              <input type="hidden" name="case" value="<%=item.dataValues.caseNo%>" form="case-form">
+                              <button type="submit" form="case-form"><%=item.dataValues.caseNo%></button>  
+                            </td>
                             <td class="cell" id="priority-cell"><%=item.dataValues.priority%></td>
                             <td class="cell" id="last-Actioned-cell"><%=item.dataValues.updatedAt%></td>
                             <td class="cell" id="title-cell"><%=item.dataValues.title%></td>
