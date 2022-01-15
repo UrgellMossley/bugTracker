@@ -6,4 +6,6 @@ router.get(`/`, userController.getIndex);
 
 router.get(`/my-queue`, userController.getQueue);
 
+router.post(`/case-create`, userController.postCase);
+
 module.exports = router;

@@ -9,13 +9,17 @@
     width: 100vw;
     grid:15vh auto/ auto ;
 }
-.flex-container{
-    height: 100%;
+section{
     width: 100%;
-    flex-direction: column;
-    justify-content: flex-start;
-    grid-column: 2;
-    grid-row: 2;
+}
+#new-case{
+    margin: auto;
+}
+#queue-text{
+    color: lightcoral;
+}
+#ticket-text{
+    margin-bottom: 2rem;
 }
 .ticket-table{
     max-width: 95%;
@@ -26,9 +30,13 @@
     margin-bottom: 1rem;
     text-align: center;
 }
-#ticket-text{
-    margin-left: 0.5rem;
 
+#ticket-count{
+    margin-top: 3rem;
+    text-align: center;
+}
+.btn, .btn-sm{
+    margin: 2rem 0;
 }
 /* Table layout */
 
@@ -52,6 +60,7 @@ td{
     padding: 0.4rem;
     background: #fff;   
 }
+
 .cell{
     text-align: center;
 }

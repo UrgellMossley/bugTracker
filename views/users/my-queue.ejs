@@ -1,59 +1,63 @@
 <%-include(`../includes/head.ejs`)%>
 <link rel="stylesheet" href="/css/queue.css">
 </head>
-    <%-include(`../includes/nav.ejs`) %>
-    <div class="flex-container flex-centre">
-        <section class="welcome-text">
+  <%-include(`../includes/nav.ejs`) %>
+   <main class="flex-container flex-centre">
+    <section class="welcome-text">
             <h1 class="headline text-xl font-wt-900">Hi <%=user.firstName %>!</h1>
-            <h2 class="ticket-count text-m font-wt-700">You have <%=queue.length%> active tickets</h2>
+            <h2 id="ticket-count" class="text-m font-wt-700">You have <span class="text-lg" id="queue-text"><%=cases.length%></span> active tickets</h2>
     </section>
     <!-- remember to change over ids for classes -->
-    <section class="ticket-table">
-        <h1 class="headline text-lg" id="ticket-text">Your Tickets</h1>
-        <table class="text-xs">
-            <thead class="table-header">
-                <td class="head-column font-wt-700 case-header">Case Number</td>
+    <section class="ticket-table flex-container flex-centre">
+        <% if (cases.length === 0 ) {%>
+            <h1 class="headline text-sm" id="ticket-text">Let's get started!</h1>
+                <button class="btn-sm" id="display-form">Create New Case</button>
 
-                <td class="head-column font-wt-700 priority-header">Priority</td>
-                <td class="head-column font-wt-700 last-Actioned-header">Last Actioned</td>
-                <td class="head-column font-wt-700 title-header">Title</td>
-                <td class="head-column font-wt-700 status-header">Status</td>
-            </thead>
-            <!-- In model add a row for each case and poulate qith db information -->
-            <%queue.forEach(item=>{%>
-                    <tr class="row">
-                        <td class="cell" id="case-cell"><%=item.dataValues.caseNo%></td>
-                        <td class="cell" id="priority-cell"><%=item.dataValues.priority%></td>
-                        <td class="cell" id="last-Actioned-cell"><%=item.dataValues.updatedAt%></td>
-                        <td class="cell" id="title-cell"><%=item.dataValues.title%></td>
-                        <td class="cell" id="status-cell"><%=item.dataValues.status%></td>
-                    </tr>    
-            <%})%>
-            
-           
-            
-        </table>
+        <%} else{ %>
+             <h1 class="headline text-lg" id="ticket-text">Your Tickets</h1>
+            <table class="text-xs">
+                <thead class="table-header">
+                    <td class="head-column font-wt-700 case-header">Case Number</td>
+                    <td class="head-column font-wt-700 priority-header">Priority</td>
+                    <td class="head-column font-wt-700 last-Actioned-header">Last Actioned</td>
+                    <td class="head-column font-wt-700 title-header">Title</td>
+                    <td class="head-column font-wt-700 status-header">Status</td>
+                </thead>
+                <!-- In model add a row for each case and populate with db information -->
+                <%cases.forEach(item=>{%>
+                        <tr class="row">
+                            <td class="cell" id="case-cell"><%=item.dataValues.caseNo%></td>
+                            <td class="cell" id="priority-cell"><%=item.dataValues.priority%></td>
+                            <td class="cell" id="last-Actioned-cell"><%=item.dataValues.updatedAt%></td>
+                            <td class="cell" id="title-cell"><%=item.dataValues.title%></td>
+                            <td class="cell" id="status-cell"><%=item.dataValues.status%></td>
+                        </tr>    
+                <%})%>            
+            </table>
+                <button class="btn-sm" id="display-form">Create New Case</button>
+        <%}%>
+
+
     </section>
-    <section id="new-case">
-        <button class="btn">Create New Case</button>
-        <form action="POST" id="case-create">
-            <h1>Create a New Case</h1>
-            <label for="title">Case Title</label>
-            <input type="text" name="title">
-            <label for="priority">Priority</label>
-             <select name="priority" id="pet-select">
-                    <option value="">--Please choose an option--</option>
+    <section id="new-case" class="flex-centre no-display">
+        <form class="flex-container flex-centre" action="/case-create" id="case-create"method="POST">
+            <h1 class="text-lg headline">Create a New Case</h1>
+            <label class="text-sm" for="title">Case Title</label>
+            <input class="text-sm" type="text" name="caseTitle">
+            <label class="text-sm" for="priority">Priority</label>
+             <select name="priority" id="priority">
+                    <option value="">Please choose an option</option>
                     <option value="P1">P1</option>
                     <option value="P2">P2</option>
                     <option value="P3">P3</option>
-                    <option value="p4">p4</option>
+                    <option value="p4">P4</option>
              </select>
-             <label for="case-description">Issue Summary</label>
-             <textarea name="case-description" id="case-description" cols="30" rows="10"></textarea>
-             <button type="submit">Submit</button>
+             <label class="text-sm"for="case-description">Issue Summary</label>
+             <textarea name="caseDescription" id="case-description" cols="30" rows="10"></textarea>
+             <button class="btn"type="submit">Submit</button>
         </form>
     </section>
-    </div>
+  </main>
     
 <%-include(`../includes/end.ejs`) %>
 <script src="/js/queue.js"></script>

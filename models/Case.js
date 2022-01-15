@@ -4,7 +4,13 @@ const sequelize = require(`../util/database.js`);
 const Sequelize = require(`Sequelize`);
 
 const Case = sequelize.define(`Case`, {
-    
+    caseNo: {
+        type: Sequelize.INTEGER, 
+        allowNull: false,
+        autoIncrement: true,
+        foreignKey: true,
+        primaryKey: true
+    },
     caseDescription:{
         type: Sequelize.TEXT,
         allowNull: false
@@ -17,7 +23,20 @@ const Case = sequelize.define(`Case`, {
         type: Sequelize.TEXT,
         allowNull: true
 
-    }
+    },
+    title: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    priority: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    status: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        defaultValue: `ASSIGNED`
+    }    
 })
 
 module.exports = Case;

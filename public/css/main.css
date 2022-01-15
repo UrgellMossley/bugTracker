@@ -37,6 +37,26 @@ body{
     gap: 0.5rem;
     grid: 15vh 85vh repeat(2,1fr) 0.5fr/repeat(3, 1fr);
 }
+label{
+    font-family: inherit;
+    margin: 0.5rem 0;
+}
+input[type="text"], textarea{
+    width: 60vw;
+    border-radius: 0.3rem;
+    padding: 1rem;
+    border: none;
+}
+select{
+    font-family: inherit;
+    margin: 1rem 0;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+    border:1px solid var(--main-element-accent);
+}
+select:focus{
+    outline: #ff702e;
+}
 /* Utility classes */
 .text-xl{
     font-size: 4rem;
@@ -68,6 +88,17 @@ body{
     justify-content: center;
     align-items: center; 
 }
+.flex-container{
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    grid-column: 2;
+    grid-row: 2;
+}
+.flex-row{
+    flex-direction: row;
+}
 .font-wt-700{
     font-weight: 700;
 }
@@ -77,6 +108,12 @@ body{
 .btn{
     cursor: pointer;
     padding: 2rem;
+    border: none;
+    border-radius: 5%;
+}
+.btn-sm{
+    cursor: pointer;
+    padding: 1rem;
     border: none;
     border-radius: 5%;
 }
@@ -98,7 +135,9 @@ body{
     transform: translateX(0%);
 }
 
-
+.no-display{
+    display: none;
+}
 .nav-container{
 
     height: 85vh;

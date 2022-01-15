@@ -80,12 +80,13 @@ app.use(async (req, res, next) => {
 
     } catch (error) {
         console.log(error);
+        
     }
 })
 //setup Sequelize association
-User.hasOne(Queue);
+User.hasMany(Case);
 Queue.belongsTo(User);
-Queue.hasMany(Case,{foreignKey: `caseNo`})
+Case.belongsToMany(User, {through: Queue});
 
 //middleware handles all userRoutes
 app.use(userRoutes)
@@ -100,7 +101,7 @@ const dbInit = async() => {
             //Sequelize query to go through Db to find all users
             const user = await User.findAll()
             //Use destructuring to store length of the array in a variable
-            let {length} = user
+            let { length } = user
             //conditional. If the array is empty create dummy user || synchronise the db
             try {
                 if (length < 1) {
@@ -113,9 +114,10 @@ const dbInit = async() => {
             }
             //Create an event listner on port 3000
             return app.listen(3000);
-        } catch (error) {
+          } catch (error) {
             console.log(error)
         }
 
 };
+
 dbInit();

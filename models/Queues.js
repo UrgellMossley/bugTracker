@@ -7,23 +7,8 @@ const Queue = sequelize.define(`Queue`,  {
     caseNo:{
         type: Sequelize.INTEGER,
         allowNull: false,
-        autoIncrement: true,
-        foreignKey:true,
         primaryKey: true
-    },
-    status:{
-        type: Sequelize.STRING,
-        allowNull: false,
-        defaultValue: `ASSIGNED`
-    },
-    title:{
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    priority:{
-        type: Sequelize.STRING,
-        allowNull: false
-    }    
+    }
 });
 
 module.exports = Queue;

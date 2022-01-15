@@ -1,6 +1,7 @@
 ************Plans For Next Milestone*********************
-- Define case model
-- Set up case association ()
+
+- set up login for
+
 - set up passport.js
 -General
 
