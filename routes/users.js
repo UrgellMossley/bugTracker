@@ -8,5 +8,8 @@ router.get(`/my-queue`, userController.getQueue);
 
 router.post(`/case-create`, userController.postCase);
 
+router.post(`/send-message`, userController.postMessage);
+
+router.get(`/case/:caseNo`, userController.getCase);
 
 module.exports = router;

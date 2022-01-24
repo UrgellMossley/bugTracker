@@ -26,6 +26,8 @@ const User = require(`./models/User.js`)
 const Queue = require(`./models/Queues.js`)
 //import extended model for cases
 const Case = require(`./models/Case.js`)
+//import Message model
+const  Message = require(`./models/Message`)
 //body parser allowing us to route files and access requests etc
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -87,14 +89,16 @@ app.use(async (req, res, next) => {
 User.hasMany(Case);
 Queue.belongsTo(User);
 Case.belongsToMany(User, {through: Queue});
+Case.hasMany(Message)
+Message.belongsTo(Case)
 
 //middleware handles all userRoutes
-app.use(userRoutes)
-
 //middleware for our error page
-app.use((req,res,next)=>{
-    res.status(404).render(`404`,{pageTitle:`404`})
+app.use(userRoutes)
+app.use((req, res, next) => {
+    res.status(404).render(`404`, { pageTitle: `404` })
 })
+
 //initialise our database/app and start event listener for our chosen port
 const dbInit = async() => {
         try {

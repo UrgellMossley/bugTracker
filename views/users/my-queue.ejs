@@ -2,15 +2,13 @@
 <link rel="stylesheet" href="/css/queue.css">
 </head>
   <%-include(`../includes/nav.ejs`) %>
-   <main class="flex-container flex-centre">
+   <div class="flex-container flex-centre">
     <section class="welcome-text">
             <h1 class="headline text-xl font-wt-900">Hi <%=user.firstName %>!</h1>
             <h2 id="ticket-count" class="text-m font-wt-700">You have <span class="text-lg" id="queue-text"><%=cases.length%></span> active tickets</h2>
     </section>
     <!-- remember to change over ids for classes -->
     <section class="ticket-table flex-container flex-centre">
-        <form action="/view-case/?" method="GET" id="case-form"></form>
-
         <% if (cases.length === 0 ) {%>
             <h1 class="headline text-sm" id="ticket-text">Let's get started!</h1>
                 <button class="btn-sm" id="display-form">Create New Case</button>
@@ -28,10 +26,7 @@
                 <!-- In model add a row for each case and populate with db information -->
                 <%cases.forEach(item=>{%>
                         <tr class="row">
-                            <td class="cell" id="case-cell">
-                              <input type="hidden" name="case" value="<%=item.dataValues.caseNo%>" form="case-form">
-                              <button type="submit" form="case-form"><%=item.dataValues.caseNo%></button>  
-                            </td>
+                            <td class="cell" id="case-cell"><a href="/case/<%=item.dataValues.caseNo%>"><%=item.dataValues.caseNo%></a></td>                           
                             <td class="cell" id="priority-cell"><%=item.dataValues.priority%></td>
                             <td class="cell" id="last-Actioned-cell"><%=item.dataValues.updatedAt%></td>
                             <td class="cell" id="title-cell"><%=item.dataValues.title%></td>
@@ -62,7 +57,7 @@
              <button class="btn"type="submit">Submit</button>
         </form>
     </section>
-  </main>
+  </div>
     
 <%-include(`../includes/end.ejs`) %>
 <script src="/js/queue.js"></script>

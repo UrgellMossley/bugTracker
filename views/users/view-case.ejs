@@ -1,0 +1,55 @@
+<%-include(`../includes/head.ejs`)%>
+<link rel="stylesheet" href="/css/case.css">
+</head>
+  <%-include(`../includes/nav.ejs`) %>
+  <div class="flex-container x flex-centre">
+    <section id="case-details">
+      <h1 class="headline text-xl" id="case-title"><%=caseTitle%></h1>
+
+      <p id="case-description" class="text-lg"><%=caseDesc%></p>
+    </section>    
+      
+      <div id="case-container" class="text-lg">
+        <nav >
+          <ul id="case-data">
+            <li class="text-sm font-wt-700">Case Number: <%=caseNo%></li>
+            <li class="text-sm font-wt-700">Status: <%=caseStatus%></li>
+            <li class="text-sm font-wt-700">Priority: <%=casePriority%></li>
+          </ul>
+        </nav>
+        <form class="send-box" action="/send-message" method="post">
+          <input type="hidden" name="caseNo" value="<%=caseNo%>">
+          <input type="hidden" name="facingValue" value="internal">
+          <textarea name="message" id="comment-box" class="text-m" cols="30" rows="10"></textarea>
+          <button id="submit-comment" class="hidden btn"type="submit">Send!</button>
+        </form>
+      
+      <nav id="case-nav">
+        <ul class="case-actions">
+          <li class="caseNav-item "><button class="text-sm font-wt-700">Feed</button> </li>
+          <li class="caseNav-item "><button class="text-sm font-wt-700">New Comment</button> </li>
+          <li class="caseNav-item "><button class="text-sm font-wt-700">New Message</button> </li>
+          <li class="caseNav-item "><button class="text-sm font-wt-700">Attach Files</button> </li>
+        </ul>
+      </nav>
+            <!-- Display message alrerting that there are no messages yet -->
+          <% if (caseMessages.length < 1) {%>
+              <h1>No Case Comments Yet</h1>
+              <div class="case-messages"></div>
+          <%} else{%>
+            <!-- Loop through Array to generate a list of articles displaying Case message info -->
+            <% for (const message of caseMessages){%>
+                  <article class="message-item">
+                    <p class="text-lg message-content"><%=message.dataValues.messages%></p>
+                    <small class="text-xs created-timestamp">created at: <%=message.dataValues.createdAt%></small>
+                  </article>      
+              <%}%>
+          <%}%>
+    </div>   
+  </div>
+  
+    
+  <%-include(`../includes/end.ejs`)%>
+  </html>
+  <script src="/js/case.js"></script>
+<%-include(`../includes/scripts.ejs`)%>

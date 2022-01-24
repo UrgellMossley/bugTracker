@@ -12,18 +12,9 @@ const Case = sequelize.define(`Case`, {
         primaryKey: true
     },
     caseDescription:{
-        type: Sequelize.TEXT,
-        allowNull: false
+        type: Sequelize.STRING,
+        allowNull: true
     } ,
-    caseNotes: {
-        type: Sequelize.STRING(1234),
-        allowNull: true
-    },
-    caseMessage: {
-        type: Sequelize.TEXT,
-        allowNull: true
-
-    },
     title: {
         type: Sequelize.STRING,
         allowNull: false
