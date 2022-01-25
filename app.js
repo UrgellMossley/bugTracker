@@ -28,6 +28,12 @@ const Queue = require(`./models/Queues.js`)
 const Case = require(`./models/Case.js`)
 //import Message model
 const  Message = require(`./models/Message`)
+const passport =  require(`passport`)
+//import passport configuration module to use in main app
+require(`./util/passport`)
+
+
+
 //body parser allowing us to route files and access requests etc
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -69,11 +75,14 @@ app.use(
         proxy: false, 
     })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
 //syncs the session data to our db
 myStore.sync();
 
 
-app.use(async (req, res, next) => {
+/* app.use(async (req, res, next) => {
     try {
         //dummy user, when auth/log in is developed we can select a user from db
         const user = await User.findAll()
@@ -84,7 +93,7 @@ app.use(async (req, res, next) => {
         console.log(error);
         
     }
-})
+}) */
 //setup Sequelize association
 User.hasMany(Case);
 Queue.belongsTo(User);
@@ -100,7 +109,7 @@ app.use((req, res, next) => {
 })
 
 //initialise our database/app and start event listener for our chosen port
-const dbInit = async() => {
+/* const dbInit = async() => {
         try {
             //Sequelize query to go through Db to find all users
             const user = await User.findAll()
@@ -122,6 +131,18 @@ const dbInit = async() => {
             console.log(error)
         }
 
+};
+ */
+const dbInit = async () => {
+    try {     
+  
+        await sequelize.sync()
+        
+    } catch (error) {
+        console.log(error)
+    }
+//Create an event listner on port 3000
+  return app.listen(3000);
 };
 
 dbInit();

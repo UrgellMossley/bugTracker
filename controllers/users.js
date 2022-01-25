@@ -4,6 +4,9 @@ const Queue = require(`../models/Queues.js`);
 const Case = require("../models/Case.js");
 const Message = require(`../models/Message.js`)
 const Transporter = require(`../util/email.js`)
+const genPassword = require(`../util/passwordUtils`).genPassword;
+const passport = require(`passport`);
+require(`../util/passport`);
 //render index page
 exports.getIndex = (req,res,next)=>{
    res.render(`users/index`, {
@@ -15,17 +18,17 @@ exports.getIndex = (req,res,next)=>{
 exports.getQueue = async(req,res,next) =>{
     //store test user in a variable and use magic method to query associated Tickets
     try {
-        const testUser = await req.user;
-        const userCases = await testUser.getCases()
+        const user = await req.user;
+        const userCases = await user.getCases()
          
         if (!userCases){
             userCases = []
         }
         //render dynamic template with passed in db data
         res.render(`users/my-queue`, {
-            pageTitle: `${testUser.firstName}'s tickets`,
+            pageTitle: `${user.firstName}'s tickets`,
             path: `/your-tickets`,
-            user: testUser,
+            user: user,
             cases: userCases,
         });
     } catch (error) {
@@ -35,14 +38,14 @@ exports.getQueue = async(req,res,next) =>{
 };
 exports.getCase = async (req, res, next) => {
     //grab user from request 
-    const testUser = await req.user;
+    const user = await req.user;
     try {
       //Use model query that will allow us to search for the case no and confirm that the righ user is accessing this data 
       const searchedCase = await Case.findAll({
             where: {
                 //req.params is passed through our anchor tag
                 caseNo: req.params.caseNo,
-                UserId: testUser.id            
+                UserId: user.id            
             }
         })
         const allMessages = await Message.findAll({
@@ -77,12 +80,12 @@ exports.getCase = async (req, res, next) => {
 //middleware to for /create-case route which creates a case and adds it to a queue for a user
 exports.postCase = async (req, res, next) => {
     //grab user from request 
-    const testUser = await req.user;
+    const user = await req.user;
     //use destructuring to pull variables out of request body passed in from Form POST request in template
     const { caseTitle,caseDescription,priority } = req.body
     //Error handling, sets queue to empty arr if any issues
     const userQueue = await Queue.findAll({where:{
-        userId: testUser.id
+        userId: user.id
     }})
     //TryCatch block which handles case creation methods, using Models defined in models dir
             try {
@@ -94,7 +97,7 @@ exports.postCase = async (req, res, next) => {
                     caseDescription: caseDescription,
                     title: caseTitle,
                     priority: priority,
-                    UserId: testUser.id
+                    UserId: user.id
                 })
                 //adds select data from case variable to Queue model for use later
                 await Queue.create({
@@ -141,7 +144,7 @@ exports.postMessage = async (req,res,next)=>{
         <p>Please click: <a href="http://localhost:3000/case/${caseNo}">here</a>, to see the latest updates</p>`
 
     })
-    /
+
     res.redirect(`/my-queue`);
 
 } catch (error) {
@@ -149,4 +152,48 @@ exports.postMessage = async (req,res,next)=>{
        next(error)
    }
 
+}
+
+exports.getLogin =(req,res,next)=>{
+    res.render(`users/login-form`,{
+        pageTitle: `Login!`,
+        path: `users/login`
+    });
+}
+
+exports.getRegister = (req, res, next) => {
+    res.render(`users/register-form`, {
+        pageTitle: `Register!`,
+        path: `/register-form`
+    });
+}
+
+exports.postRegister = async (req, res, next) => {
+    const { username, email, firstName, surname, password } = req.body;
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+    const saltHash = genPassword(password);
+
+    try {
+         await User.create({
+            username: username,
+            email: email,
+            firstName: firstName,
+            surname: surname,
+            hash: hash,
+            salt: salt,
+            admin: true
+        });
+        res.redirect(`users/login-form`);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+    
+}
+
+exports.postLogin = (req, res, next) => {
+   const user =  passport.authenticate('local', { failureRedirect: '/login-failure', successRedirect: 'login-success' });
+    res.redirect(`/my-queue`)
+   if (!user) res.redirect(`users/login-form`)
 }

@@ -24,6 +24,19 @@ const User = sequelize.define(`User`,{
         defaultValue:  Sequelize.UUIDV4,
         allowNull: false,
         primaryKey: true
+    },
+    username:{
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
+    },
+    hash:{
+        type: Sequelize.STRING(512),
+        allowNull: false,
+    },
+    salt:{
+        type: Sequelize.STRING(512),
+        allowNull: false
     }
 
 
