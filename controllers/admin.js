@@ -21,7 +21,6 @@ exports.getCase = async (req, res, next) => {
             }
         })
         if (!caseMessages) caseMessages = [];
-        console.log(caseMessages,`dsfdffdfd`)
         
         //render a dynamic template passing in the data from our database
         res.render(`users/view-case`, {
