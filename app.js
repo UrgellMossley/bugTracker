@@ -30,9 +30,7 @@ const Case = require(`./models/Case.js`)
 const  Message = require(`./models/Message`)
 const passport =  require(`passport`)
 //import passport configuration module to use in main app
-require(`./util/passport`)
-
-
+require(`./util/passport`);
 
 //body parser allowing us to route files and access requests etc
 app.use(express.urlencoded({ extended: true }));
@@ -78,22 +76,10 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 //syncs the session data to our db
 myStore.sync();
 
-
-/* app.use(async (req, res, next) => {
-    try {
-        //dummy user, when auth/log in is developed we can select a user from db
-        const user = await User.findAll()
-           req.user = user[0]
-        next();
-
-    } catch (error) {
-        console.log(error);
-        
-    }
-}) */
 //setup Sequelize association
 User.hasMany(Case);
 Queue.belongsTo(User);
@@ -108,31 +94,7 @@ app.use((req, res, next) => {
     res.status(404).render(`404`, { pageTitle: `404` })
 })
 
-//initialise our database/app and start event listener for our chosen port
-/* const dbInit = async() => {
-        try {
-            //Sequelize query to go through Db to find all users
-            const user = await User.findAll()
-            //Use destructuring to store length of the array in a variable
-            let { length } = user
-            //conditional. If the array is empty create dummy user || synchronise the db
-            try {
-                if (length < 1) {
-                    return User.create({ firstName: `George`, surname: `Edem`, email: `effiom124@bmail.com` });
-                } else {
-                    await sequelize.sync()
-                }
-            } catch (error) {
-                console.log(error);
-            }
-            //Create an event listner on port 3000
-            return app.listen(3000);
-          } catch (error) {
-            console.log(error)
-        }
-
-};
- */
+//initialise/sync our database/app and start event listener for our chosen port
 const dbInit = async () => {
     try {     
   

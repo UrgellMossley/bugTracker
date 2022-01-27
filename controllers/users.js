@@ -6,16 +6,25 @@ const Message = require(`../models/Message.js`)
 const Transporter = require(`../util/email.js`)
 const genPassword = require(`../util/passwordUtils`).genPassword;
 const passport = require(`passport`);
+const req = require("express/lib/request");
 require(`../util/passport`);
+
+
 //render index page
 exports.getIndex = (req,res,next)=>{
+    const authString = req.isAuthenticated() ? `Logout`: `Login`;
+
    res.render(`users/index`, {
         pageTitle: `Your Tickets`,
-        path: `/`
+        path: `/`,
+       auth: authString
+
     })
 }
 //middleware to render stored db data for a chosen user
 exports.getQueue = async(req,res,next) =>{
+    const authString = req.isAuthenticated() ? `Logout` : `Login`;
+
     //store test user in a variable and use magic method to query associated Tickets
     try {
         const user = await req.user;
@@ -30,6 +39,8 @@ exports.getQueue = async(req,res,next) =>{
             path: `/your-tickets`,
             user: user,
             cases: userCases,
+            auth: authString
+
         });
     } catch (error) {
         next(error);
@@ -37,6 +48,8 @@ exports.getQueue = async(req,res,next) =>{
  
 };
 exports.getCase = async (req, res, next) => {
+    const authString = req.isAuthenticated() ? `Logout` : `Login`;
+
     //grab user from request 
     const user = await req.user;
     try {
@@ -67,7 +80,9 @@ exports.getCase = async (req, res, next) => {
             caseMessages: allMessages,
             casePriority: priority,
             caseStatus: status,
-            caseUpated: updatedAt
+            caseUpated: updatedAt,
+            auth: authString
+
         })
     } catch (error) {
         console.log(error)
@@ -153,28 +168,53 @@ exports.postMessage = async (req,res,next)=>{
    }
 
 }
-
+//get request for login page
 exports.getLogin =(req,res,next)=>{
+    const authString = req.isAuthenticated() ? `Logout` : `Login`;
+
     res.render(`users/login-form`,{
         pageTitle: `Login!`,
-        path: `users/login`
+        path: `users/login`,
+        auth: authString 
+
     });
 }
 
 exports.getRegister = (req, res, next) => {
+    const authString = req.isAuthenticated() ? `Logout` : `Login`;
+
     res.render(`users/register-form`, {
         pageTitle: `Register!`,
-        path: `/register-form`
+        path: `/register-form`,
+        auth: authString
+
     });
 }
 
+exports.getLoggedIn = async (req,res,next) =>{
+    const authString = req.isAuthenticated() ? `Logout` : `Login`;
+
+    res.render(`users/login-redirect`,{
+        pageTitle: `log in successful`,
+        user: await req.user,
+        auth: authString
+    })
+}
+
+exports.getLogout = (req,res,next)=>{
+    req.logout();
+    res.redirect(`/`);
+};
+
 exports.postRegister = async (req, res, next) => {
     const { username, email, firstName, surname, password } = req.body;
-    const salt = saltHash.salt;
-    const hash = saltHash.hash;
     const saltHash = genPassword(password);
 
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+
     try {
+        //use sequelize magic function to generate a new user with passed in information
          await User.create({
             username: username,
             email: email,
@@ -191,9 +231,8 @@ exports.postRegister = async (req, res, next) => {
     }
     
 }
-
+//post request that validates login, derived from our password config file 
 exports.postLogin = (req, res, next) => {
-   const user =  passport.authenticate('local', { failureRedirect: '/login-failure', successRedirect: 'login-success' });
-    res.redirect(`/my-queue`)
-   if (!user) res.redirect(`users/login-form`)
+    //function that returns failure bool or user and passes that user with request to next middleware
+   passport.authenticate('local', { failureRedirect: '/login-failure', successRedirect: '/logged-in' });
 }

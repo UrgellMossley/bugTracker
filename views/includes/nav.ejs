@@ -7,9 +7,10 @@
     <nav class="navbar">
        <ul class="nav-container">
                     <li class="nav-item "><a class="text-m font-wt-700" href="/">home</a></li>
-                    <li class="nav-item"><a  class="text-m font-wt-700"href="#">login</a></li>
+                    <!-- Need to pass in a bool to configure whter this says login or logout -->
+                    <li class="nav-item"><a  class="text-m font-wt-700"href="/logout">Logout</a></li>
                     <li class="nav-item"><a class="text-m font-wt-700" href="https://github.com/UrgellMossley">Github</a></li>
-                    <li class="nav-item"><a  class="text-m font-wt-700"href="#">Contact</a></li>
+                    <li class="nav-item"><a  class="text-m font-wt-700"href="#"><%=auth%></a></li>
         </ul>
     </nav>
 </header>
