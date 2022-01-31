@@ -3,6 +3,8 @@
 </head>
 
     <%-include(`../includes/nav.ejs`)%>
+    <main class="container">
+
     <section class="grid-centre lead-text">
             <h1 class="headline text-xl">Bug Tracker App</h1>
     </section>
@@ -14,7 +16,13 @@
         <img class="doodle" src="/img/MessyDoodle.png" alt="picture of a lady multi tasking">
     </section>
     <section class="start-section">
-            <a href="/register-form"><button id="start-btn" class="btn text-sm grid-centre">Get Started!</button></a>
+            <a href="<%if (auth === `Logout`) { %> /my-queue <%} else  { %> /login-form <% }%>""><button id="start-btn" class="btn text-sm grid-centre">
+               <%if (auth === `Logout`) { %>
+                Go to My Queues 
+                <%} else  { %> Get Started!
+                 <% }%>
+                
+            </button></a>
     </section>
 <%-include(`../includes/end.ejs`)%>
 <%-include(`../includes/scripts.ejs`)%>

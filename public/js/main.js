@@ -2,12 +2,10 @@
 
 //DOM element selection
 const hamburgerBtn = document.querySelector(`.hamburger-btn`)
-const navlist = document.querySelector(`.navbar`)
+const navlist = document.querySelector(`.nav-container`)
 const nodeContainer = document.querySelector(`.container`)
 
 hamburgerBtn.addEventListener(`click`,()=>{
-    navlist.classList.toggle(`active`)
     navlist.classList.toggle(`hidden-item`)
-    nodeContainer.classList.toggle(`overlayed`)
 
 })

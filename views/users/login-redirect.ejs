@@ -1,16 +1,11 @@
 <%-include(`../includes/head.ejs`)%>
-<!-- put css link here -->
-</head>
+<link rel="stylesheet" href="/css/redirect.css"></head>
   <%-include(`../includes/nav.ejs`) %>
-    
+    <main class="container">
 
-    <h1>Welcome <%=user.firstName%></h1>
-    <h2>You're logged in</h2>
-    <p>You will be logged in within the next few moments, if any issue, please click <a href="/my-queue">here</a></p>
-
-
-
-
+    <h1 class="redirect-text text-xl font-wt-700">Welcome <span><%=user.firstName%></span></h1>
+    <h2 class="redirect-text text-lg">You're logged in</h2>
+    <p class="redirect-text text-lg">You will be logged in within the next few moments, if any issue, please click <a href="/my-queue">here</a></p>
 
 <%-include(`../includes/end.ejs`) %>
 <script src="/js/redirect.js"></script>

@@ -1,0 +1,45 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#welcome-section{
+    height: 10rem;
+    display: flex;
+    align-items: center;
+}
+.error-headline{
+    color: #FF2300;
+}
+.headline{
+    padding: 1rem;
+}
+.label-container {
+    position: relative;
+    padding: 1rem 0;
+    width: 100%;
+}
+/* Form styling */
+#forms{
+    display: flex;
+    height: fit-content;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    padding: 2rem;
+    background: #FFBC1F;
+    border-radius: 2rem;
+}
+
+#login-form{
+    height: 25rem;
+    padding: 2rem;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+ 

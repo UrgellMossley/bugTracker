@@ -37,6 +37,11 @@ const User = sequelize.define(`User`,{
     salt:{
         type: Sequelize.STRING(512),
         allowNull: false
+    },
+    isAdmin:{
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
     }
 
 

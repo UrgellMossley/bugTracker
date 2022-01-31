@@ -2,23 +2,12 @@ const express = require(`express`);
 const router = express.Router();
 const userController = require(`../controllers/users`);
 const passport = require(`passport`);
-const { route } = require("express/lib/application");
-
-const checkAuthentificated = (req, res, next) => {
-    const authString = req.isAuthenticated() ? `Logout` : `Login`;
-
-    if (req.isAuthenticated()) {
-        //req.isAuthenticated() will return true if user is logged in
-        next();
-    } else {
-        res.status(401).render(`errors/401`,{pageTitle: `error 401`,auth: authString});
-    }
-
-}
+const isAdmin = require(`./authMiddlare`).isAdmin;
+const checkAuthentificated = require(`./authMiddlare`).checkAuthentificated;
 
 router.get(`/`, userController.getIndex);
 
-router.get(`/my-queue`, checkAuthentificated, userController.getQueue);
+router.get(`/my-queue`,isAdmin, checkAuthentificated, userController.getQueue);
 
 //get requests for to retrieve login/register form views
 router.get(`/login-form`, userController.getLogin);
@@ -26,6 +15,8 @@ router.get(`/login-form`, userController.getLogin);
 router.get(`/register-form`, userController.getRegister);
 
 router.get(`/logged-in`, userController.getLoggedIn);
+
+router.get(`/login-failure`,userController.getLoginFailure);
 
 router.get(`/logout`, userController.getLogout)
 

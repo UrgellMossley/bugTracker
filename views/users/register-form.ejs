@@ -1,18 +1,28 @@
 <%-include(`../includes/head.ejs`)%>
-<!-- put css link here -->
+<link rel="stylesheet" href="/css/register.css">
 </head>
   <%-include(`../includes/nav.ejs`) %>
-    
-
-    <h1>Login Page</h1>
-    <form method="POST" action="/register">
-        <br>Enter name:<br><input type="text" name="firstName">
-        <br>Enter surname:<br><input type="text" name="surname">
-        <br>Enter email:<br><input type="email" name="email">
-        <br>Enter Username:<br><input type="text" name="username">
-        <br>Enter Password:<br><input type="password" name="password">
-        <br><br><input type="submit" value="Submit">
+  <main class="container"></main>
+  <section id="welcome">
+    <h1 class="text-lg font-wt-700">First Time?</h1>
+    <p id="register-text"class="text-sm font-wt-700">Happy to have you, please register below:</p>
+  </section>
+  <section id="form-section">
+     <form id="register-form" method="POST" action="/register">
+        <div class="label-container"><label class="text-sm font-wt-700" for="firstName">Enter Forname:</label></div>
+        <input type="text" name="firstName">
+        <div class="label-container"><label class="text-sm font-wt-700" for="surname">Enter Surname:</label></div>
+        <input type="text" name="surname">
+        <div class="label-container"><label class="text-sm font-wt-700" for="email">Enter Email:</label></div>
+        <input type="email" name="email">
+        <div class="label-container"><label class="text-sm font-wt-700" for="username">Enter Username:</label></div>
+        <input type="text" name="username">
+        <div class="label-container"><label class="text-sm font-wt-700" for="password">Enter Password:</label></div>
+        <input type="password" name="password">
+        <button class="btn-sm btn" type="submit" value="Submit">Register</button>
     </form>
+  </section>
+   
 
 
 

@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="/css/case.css">
 </head>
   <%-include(`../includes/nav.ejs`) %>
+  
   <div class="flex-container x flex-centre">
     <section id="case-details">
       <h1 class="headline text-xl" id="case-title"><%=caseTitle%></h1>
@@ -35,7 +36,6 @@
             <!-- Display message alrerting that there are no messages yet -->
           <% if (caseMessages.length < 1) {%>
               <h1>No Case Comments Yet</h1>
-              <div class="case-messages"></div>
           <%} else{%>
             <!-- Loop through Array to generate a list of articles displaying Case message info -->
             <% for (const message of caseMessages){%>
@@ -47,7 +47,6 @@
           <%}%>
     </div>   
   </div>
-  
     
   <%-include(`../includes/end.ejs`)%>
   </html>

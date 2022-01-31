@@ -1,0 +1,48 @@
+#main-dash{
+    
+    background-color: #727272;
+    
+}
+#welcome-dash{
+    background-color:#bbff7b ;
+}
+#welcome-dash, #instructions, #main-dash{
+    border-radius: 2rem;
+    margin: 1rem;
+    padding: 2rem;
+    color: #fff;
+    max-width: 90vw;
+}
+#instructions{
+    grid-column: 2;
+    grid-row: 3;
+    transform: translateY(8rem);
+    padding: 2rem;
+    background-color: #FFB8A0;
+    margin-top: 1rem;
+
+}
+li{
+    margin: 0.5rem;
+    list-style: square;
+}
+td{
+    text-align: center;
+    padding: 0.5rem;
+}
+table{
+    border-collapse: collapse;
+    overflow: auto;
+}
+
+@media screen and (min-width: 810px) {
+.flexbox{
+    grid-column: 4/10
+}
+#instructions{
+    grid-column: 1/4;
+    grid-row: 2;
+        transform: translateY(0rem);
+
+}   
+}

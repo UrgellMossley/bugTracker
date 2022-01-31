@@ -6,24 +6,23 @@ const Message = require(`../models/Message.js`)
 const Transporter = require(`../util/email.js`)
 const genPassword = require(`../util/passwordUtils`).genPassword;
 const passport = require(`passport`);
-const req = require("express/lib/request");
+const { isAdmin } = require("../routes/authMiddlare.js");
 require(`../util/passport`);
 
 
 //render index page
 exports.getIndex = (req,res,next)=>{
-    const authString = req.isAuthenticated() ? `Logout`: `Login`;
 
    res.render(`users/index`, {
         pageTitle: `Your Tickets`,
         path: `/`,
-       auth: authString
+       auth: req.isAuthenticated() ? `Logout` : `Login`
+
 
     })
 }
 //middleware to render stored db data for a chosen user
 exports.getQueue = async(req,res,next) =>{
-    const authString = req.isAuthenticated() ? `Logout` : `Login`;
 
     //store test user in a variable and use magic method to query associated Tickets
     try {
@@ -39,7 +38,8 @@ exports.getQueue = async(req,res,next) =>{
             path: `/your-tickets`,
             user: user,
             cases: userCases,
-            auth: authString
+            auth: req.isAuthenticated() ? `Logout` : `Login`
+
 
         });
     } catch (error) {
@@ -48,17 +48,12 @@ exports.getQueue = async(req,res,next) =>{
  
 };
 exports.getCase = async (req, res, next) => {
-    const authString = req.isAuthenticated() ? `Logout` : `Login`;
-
-    //grab user from request 
-    const user = await req.user;
     try {
       //Use model query that will allow us to search for the case no and confirm that the righ user is accessing this data 
-      const searchedCase = await Case.findAll({
+      const searchedCase = await Case.findOne({
             where: {
                 //req.params is passed through our anchor tag
-                caseNo: req.params.caseNo,
-                UserId: user.id            
+                caseNo: req.params.caseNo    
             }
         })
         const allMessages = await Message.findAll({
@@ -70,7 +65,7 @@ exports.getCase = async (req, res, next) => {
         if (!allMessages){
             allMessages = []
         }
-        const { caseNo, caseDescription, title, priority, status, updatedAt} = searchedCase[0].dataValues
+        const { caseNo, caseDescription, title, priority, status, updatedAt} = searchedCase.dataValues
         //render a dynamic template passing in the data from our database
         res.render(`users/view-case`,{
             pageTitle: `Case ${caseNo}`,
@@ -81,7 +76,8 @@ exports.getCase = async (req, res, next) => {
             casePriority: priority,
             caseStatus: status,
             caseUpated: updatedAt,
-            auth: authString
+            admin: req.user.isAdmin,
+            auth: req.isAuthenticated() ? `Logout` : `Login`
 
         })
     } catch (error) {
@@ -170,34 +166,32 @@ exports.postMessage = async (req,res,next)=>{
 }
 //get request for login page
 exports.getLogin =(req,res,next)=>{
-    const authString = req.isAuthenticated() ? `Logout` : `Login`;
 
     res.render(`users/login-form`,{
         pageTitle: `Login!`,
         path: `users/login`,
-        auth: authString 
+        auth: req.isAuthenticated() ? `Logout` : `Login`,
+        errorMsg: false
 
     });
 }
-
+//get request middleware that serves up registration form for new users
 exports.getRegister = (req, res, next) => {
-    const authString = req.isAuthenticated() ? `Logout` : `Login`;
 
     res.render(`users/register-form`, {
         pageTitle: `Register!`,
         path: `/register-form`,
-        auth: authString
+        auth: req.isAuthenticated() ? `Logout` : `Login`
 
     });
 }
 
 exports.getLoggedIn = async (req,res,next) =>{
-    const authString = req.isAuthenticated() ? `Logout` : `Login`;
 
     res.render(`users/login-redirect`,{
         pageTitle: `log in successful`,
         user: await req.user,
-        auth: authString
+        auth: req.isAuthenticated() ? `Logout` : `Login`
     })
 }
 
@@ -230,6 +224,15 @@ exports.postRegister = async (req, res, next) => {
         next(error);
     }
     
+}
+exports.getLoginFailure = (req,res,next) =>{
+    res.render(`users/login-form`, {
+        pageTitle: `Login!`,
+        path: `users/login`,
+        errorMsg: true,
+        auth: req.isAuthenticated() ? `Logout` : `Login`
+
+    });
 }
 //post request that validates login, derived from our password config file 
 exports.postLogin = (req, res, next) => {

@@ -1,11 +1,9 @@
-<main class="container grid-centre">
 <header>
-    <button class="hamburger-btn circle-element"><span class="hamburger"></span></button>
-
-    <a class="logo-link"href="#"><img src="/img/logo.png" alt="image of logo for Webdev by George"></a>
-
     <nav class="navbar">
-       <ul class="nav-container">
+
+        <a class="logo-link"href="/"><img src="/img/logo.png" alt="image of logo for Webdev by George"></a>
+        <button class="hamburger-btn circle-element"><span class="hamburger"></span></button>
+        <ul class="nav-links">
                     <li class="nav-item "><a class="text-m font-wt-700" href="/">home</a></li>
                     <!-- Need to pass in a bool to configure whter this says login or logout -->
                     <li class="nav-item"><a class="text-m font-wt-700" href="https://github.com/UrgellMossley">Github</a></li>
@@ -13,5 +11,14 @@
                     <li class="nav-item"><a  class="text-m font-wt-700"href="<% if (auth === `Logout`) { %> /logout <%} else  { %> /login-form <% }%>"><%=auth%></a></li>
                     <li class="nav-item"><a  class="text-m font-wt-700"href="#">Contact</a></li>
         </ul>
+
     </nav>
+     <ul class="nav-container">
+                    <li class="nav-item "><a class="text-sm font-wt-700" href="/">home</a></li>
+                    <!-- Need to pass in a bool to configure whter this says login or logout -->
+                    <li class="nav-item"><a class="text-sm font-wt-700" href="https://github.com/UrgellMossley">Github</a></li>
+                    <!-- parses in a few conditionals to configure the login/llgout behaviour and text output -->
+                    <li class="nav-item"><a  class="text-sm font-wt-700"href="<% if (auth === `Logout`) { %> /logout <%} else  { %> /login-form <% }%>"><%=auth%></a></li>
+                    <li class="nav-item"><a  class="text-sm font-wt-700"href="#">Contact</a></li>
+        </ul>
 </header>

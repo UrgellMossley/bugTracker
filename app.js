@@ -91,17 +91,15 @@ Message.belongsTo(Case)
 //middleware for our error page
 app.use(userRoutes)
 app.use((req, res, next) => {
-    res.status(404).render(`404`, { pageTitle: `404` })
+    res.status(404).render(`errors/404`, { pageTitle: `404`, auth: req.isAuthenticated() ? `Logout` : `Login`})
 })
 
 //initialise/sync our database/app and start event listener for our chosen port
 const dbInit = async () => {
     try {     
-  
         await sequelize.sync()
-        
     } catch (error) {
-        console.log(error)
+        next(error)
     }
 //Create an event listner on port 3000
   return app.listen(3000);

@@ -1,7 +1,5 @@
 ************Plans For Next Milestone*********************
 
-Resolve lingering CSS issue (grid of container), nav link issue
-Set up admin access, create dashboard
 Make priority etc editable(crUd)
 Finish app with Update and Destroy functions for cases
 

@@ -1,0 +1,14 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+}
+
+.redirect-text{
+    padding: 1rem;
+}
+span{
+    color: #FF2300;
+}

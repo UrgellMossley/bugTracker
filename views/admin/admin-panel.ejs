@@ -1,0 +1,56 @@
+<%-include(`../includes/head.ejs`)%>
+<link rel="stylesheet" href="/css/admin-panel.css">
+</head>
+  <%-include(`../includes/nav.ejs`) %>
+  
+  <div class="flex-container flexbox flex-centre">
+      <article id="welcome-dash">
+    <h1 class="text-m">Hello <%=adminData.firstName%></h1>
+    <h3 class="text-m">You have <%=caseArr.length%> unresolved cases!</h3>
+  </article>
+
+  <article id="main-dash">
+        <!-- Display message alrerting that there are no messages yet -->
+          <% if (caseArr.length < 1) {%>
+              <h1>No Cases Yet</h1>
+              <div class="case-messages"></div>
+          <%} else{%>
+            <!-- Loop through Array to generate a list of articles displaying Case message info -->
+            <table>
+                <thead>
+                        <td class="font-wt-700 text-xs">Case:</td>
+                        <td class="font-wt-700 text-xs">Title:</td>
+                        <td class="font-wt-700 text-xs">Priority:</td>
+                        <td class="font-wt-700 text-xs">Status:</td>
+                        <td class="font-wt-700 text-xs">Last Updated:</td>
+                </thead>
+                <% caseArr.forEach(item=>{%>
+                    <tr>
+                        <td class="font-wt-700 text-sm"><a href="/case/<%=item.caseNo%>"><%=item.caseNo%></td>
+                        <td class="font-wt-700 text-xs"><%=item.title%></td>
+                        <td class="font-wt-700 text-xs"><%=item.priority%></td>
+                        <td class="font-wt-700 text-xs"><%=item.status%></td>
+                        <td class="font-wt-700"><%=item.updatedAt%></td>
+             </tr>
+               <% })%>
+            </table>            
+                 
+              <%}%>
+  </article>
+  </div>
+  <article id="instructions">
+    <h1 class="text-m font-wt-700">Admin Notes</h1>
+    <ul>
+      <li class="text-sm">As an admin you have access to all cases created regardless of who made them.</li>
+      <li class="text-sm">Click on a case number and get solving cases!</li>
+      <li class="text-sm">Remember: As an admin you also have the ability to close cases and ammend priorities etc</li>
+    </ul>
+  </article>
+
+  
+    
+  
+    
+  <%-include(`../includes/end.ejs`)%>
+  </html>
+<%-include(`../includes/scripts.ejs`)%>
